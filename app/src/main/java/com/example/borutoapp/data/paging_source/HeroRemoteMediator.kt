@@ -22,7 +22,7 @@ class HeroRemoteMediator @Inject constructor(
 
     override suspend fun load(
         loadType: LoadType, state: PagingState<Int, Hero>
-    ): RemoteMediator.MediatorResult {
+    ): MediatorResult {
         return try {
             val page = when (loadType) {
                 LoadType.REFRESH -> {
