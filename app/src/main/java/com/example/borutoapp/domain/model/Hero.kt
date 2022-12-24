@@ -13,6 +13,7 @@ data class Hero(
     val name: String,
     val about: String,
     val rating: Double,
+    val image: String,
     val power: Int,
     val month: String,
     val day: String,
