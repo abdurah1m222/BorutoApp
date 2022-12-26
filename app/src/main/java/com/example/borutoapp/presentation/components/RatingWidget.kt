@@ -39,7 +39,7 @@ fun RatingWidget(
     val starPathBounds = remember {
         starPath.getBounds()
     }
-    
+
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(spaceBetween)
@@ -162,7 +162,7 @@ fun calculateStars(rating: Double): Map<String, Int> {
     var filledStars by remember { mutableStateOf(0) }
     var halfFilledStars by remember { mutableStateOf(0) }
     var emptyStars by remember { mutableStateOf(0) }
-    
+
     LaunchedEffect(key1 = rating) {
         val (firstNumber, lastNumber) = rating.toString()
             .split(".")
@@ -181,8 +181,7 @@ fun calculateStars(rating: Double): Map<String, Int> {
                 filledStars = 0
                 halfFilledStars = 0
             }
-        }
-        else Log.d("RatingWidget", "Invalid rating number.")
+        } else Log.d("RatingWidget", "Invalid rating number.")
     }
     emptyStars = maxStars - (filledStars + halfFilledStars)
     return mapOf(

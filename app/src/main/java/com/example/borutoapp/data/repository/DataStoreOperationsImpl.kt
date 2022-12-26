@@ -20,14 +20,14 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = PRE
 class DataStoreOperationsImpl(context: Context): DataStoreOperations {
 
     private object PreferencesKey {
-        val onboardingKey = booleanPreferencesKey(name = PREFERENCES_KEY)
+        val onBoardingKey = booleanPreferencesKey(name = PREFERENCES_KEY)
     }
 
     private val dataStore = context.dataStore
 
     override suspend fun saveOnBoardingState(completed: Boolean) {
         dataStore.edit { preferences ->
-            preferences[PreferencesKey.onboardingKey] = completed
+            preferences[PreferencesKey.onBoardingKey] = completed
         }
     }
 
@@ -41,7 +41,7 @@ class DataStoreOperationsImpl(context: Context): DataStoreOperations {
                 }
             }
             .map { preferences ->
-                val onBoardingState = preferences[PreferencesKey.onboardingKey] ?: false
+                val onBoardingState = preferences[PreferencesKey.onBoardingKey] ?: false
                 onBoardingState
             }
     }
