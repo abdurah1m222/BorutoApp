@@ -1,9 +1,11 @@
 package com.example.borutoapp.presentation.common
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.MaterialTheme
@@ -22,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.items
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.borutoapp.R
@@ -31,14 +34,31 @@ import com.example.borutoapp.presentation.components.RatingWidget
 import com.example.borutoapp.ui.theme.*
 import com.example.borutoapp.utils.Constants.BASE_URL
 
+@ExperimentalCoilApi
 @Composable
 fun ListContent(
     heroes: LazyPagingItems<Hero>,
     navController: NavHostController
 ) {
-
+    Log.d("ListContent", heroes.loadState.toString())
+    LazyColumn(
+        contentPadding = PaddingValues(all = SMALL_PADDING),
+        verticalArrangement = Arrangement.spacedBy(SMALL_PADDING)
+    ) {
+        items(
+            items = heroes,
+            key = { hero ->
+                hero.id
+            }
+        ) { hero ->
+            hero?.let { 
+                HeroItem(hero = it, navController = navController)
+            }
+        }
+    }
 }
 
+@ExperimentalCoilApi
 @Composable
 fun HeroItem(
     hero: Hero,
@@ -58,7 +78,7 @@ fun HeroItem(
             },
         contentAlignment = Alignment.BottomStart
     ) {
-        Surface(shape = Shapes.large) {
+        Surface(shape = RoundedCornerShape(size = LARGE_PADDING)) {
             Image(
                 modifier = Modifier.fillMaxSize(),
                 painter = painter,
@@ -73,7 +93,7 @@ fun HeroItem(
             color = Color.Black.copy(alpha = ContentAlpha.medium),
             shape = RoundedCornerShape(
                 bottomStart = LARGE_PADDING,
-                bottomEnd = MEDIUM_PADDING
+                bottomEnd = LARGE_PADDING
             )
         ) {
             Column(
@@ -92,7 +112,7 @@ fun HeroItem(
                 Text(
                     text = hero.about,
                     color = Color.White.copy(alpha = ContentAlpha.medium),
-                    fontSize = MaterialTheme.typography.subtitle1   .fontSize,
+                    fontSize = MaterialTheme.typography.subtitle1.fontSize,
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -106,7 +126,8 @@ fun HeroItem(
                             .padding(end = SMALL_PADDING),
                         rating = hero.rating
                     )
-                    Text(text = "(${hero.rating})",
+                    Text(
+                        text = "(${hero.rating})",
                         textAlign = TextAlign.Center,
                         color = Color.White.copy(alpha = ContentAlpha.medium)
                     )
@@ -126,7 +147,7 @@ fun HeroItemPreview() {
             name = "Sasuke",
             image = "",
             about = "Some random text...",
-            rating = 4.5,
+            rating = 0.0,
             power = 100,
             month = "",
             day = "",
@@ -148,7 +169,7 @@ fun HeroItemDarkPreview() {
             name = "Sasuke",
             image = "",
             about = "Some random text...",
-            rating = 4.5,
+            rating = 0.0,
             power = 100,
             month = "",
             day = "",
