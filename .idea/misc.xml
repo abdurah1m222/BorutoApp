@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/java/kg/abu/borutoapp/presentation/screens/splash/SplashScreen.kt" value="0.18" />
+        <entry key="app/src/main/java/kg/abu/borutoapp/presentation/screens/welcome/WelcomeScreen.kt" value="0.22" />
         <entry key="app/src/main/res/drawable/logo.xml" value="0.1945" />
       </map>
     </option>
